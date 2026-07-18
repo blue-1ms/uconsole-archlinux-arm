@@ -3,7 +3,9 @@
 面向 ClockworkPi uConsole CM4 Lite 的可重复构建 Arch Linux ARM
 镜像控制面。
 
-> 当前状态：仓库骨架。尚未生成、发布或验证任何可刷写镜像。
+> 当前状态：仓库骨架。尚未生成、发布或验证任何可刷写镜像，也尚未生成或
+> 验证任何 Arch kernel package。当前暂停 Arch package/image 构建，先等待
+> Ubuntu 控制面中的 CM4 Lite lean kernel 完成实机验证并冻结不可变 receipt。
 
 本项目计划使用签名且固定完整性信息的 Arch Linux ARM AArch64 rootfs，
 结合 [`blue-1ms/rpi-linux`](https://github.com/blue-1ms/rpi-linux) 中经过
@@ -21,6 +23,8 @@ Arch Linux ARM 镜像。
 - 保留完整的 uConsole panel、backlight、input、audio、PMIC/battery、
   Wi-Fi/Bluetooth 与常用 USB 外设支持。
 - kernel 更新进入独立 `new` boot slot；失败时回到 known-good `current`。
+- kernel 滚动策略固定为：最新 hardware-passed kernel 是 `current`，紧邻
+  上一版是唯一 N-1 known-good fallback，N-2 通过 package manager 清理。
 - 无屏幕时仍可从 FAT boot 分区读取不含隐私数据的诊断信箱。
 - 默认镜像不包含密码、SSH key、Wi-Fi、Tailscale、npm、GitHub 或 Codex
   凭据。
@@ -28,7 +32,11 @@ Arch Linux ARM 镜像。
 ## 非目标
 
 - 当前阶段不支持 CM3、CM4S、CM5、eMMC、4G、AIC8800 或公共 stable 发布。
+- 不把 CM4 Lite lean config 宣称为 CM5 或其他机型的通用 config；新机型先从
+  full config 建立独立 profile，再经过 config 与实机审计。
 - 不直接安装或解包 Ubuntu `.deb` 作为 Arch package。
+- 在共享 kernel receipt 标记为 hardware-passed 前，不构建或发布 Arch kernel
+  package。
 - 不在镜像中固化个人用户名或 `/home/mew`。
 - 不跟随浮动 kernel branch、rootfs `latest` URL 或未锁定的 npm package
   生成 release。
@@ -49,7 +57,8 @@ docs/            中文维护文档和 release evidence
 ```
 
 详细职责边界见 [`docs/architecture.md`](docs/architecture.md)，阶段计划见
-[`docs/roadmap.md`](docs/roadmap.md)。
+[`docs/roadmap.md`](docs/roadmap.md)，共享 kernel 接入政策见
+[`docs/kernel-lineage.md`](docs/kernel-lineage.md)。
 
 ## 相关仓库
 

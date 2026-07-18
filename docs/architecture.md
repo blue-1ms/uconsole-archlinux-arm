@@ -52,6 +52,14 @@ package archive。
 - config 采用“CM4 Lite 定向、常用外设通用”策略：可删除不可能使用的 PCIe
   独显和服务器设备，但必须保留 USB HID/storage/network/audio/webcam、
   Bluetooth、SCSI/UAS 和常用文件系统。
+- CM4 Lite lean config 必须由显式 fragment、`olddefconfig`、config delta、
+  required-symbol 检查和 SHA receipt 生成，禁止使用依赖构建机已加载模块状态的
+  `localmodconfig`。
+- CM5 和其他机型使用独立 target profile。适配初期先使用对应 Raspberry Pi
+  full config，硬件清单稳定后再生成该机型自己的 audited lean fragment。
+- Ubuntu 上的 hardware-passed 只证明共享 kernel source/config/patch lineage
+  在 CM4 Lite 上成立；Arch 的 `mkinitcpio`、Mesa、firmware、package hooks 和
+  rootfs 仍需独立验证。
 
 ## Boot
 
@@ -67,6 +75,15 @@ PoC 使用 Raspberry Pi firmware direct boot 和 `config.txt`/DT overlays。
 - validator 在 promote 或标记失败前原子写入 FAT 诊断信箱；
 - panel、backlight、rootfs、input、PMIC 或 DRM 健康检查失败时回退；
 - 不依赖 UART 才能取得故障信息。
+
+滚动更新只保留两个可启动版本：
+
+- 最新 hardware-passed kernel 为 `current`；
+- 紧邻上一版为唯一 N-1 known-good fallback；
+- 新 kernel 先写 `new` 并通过 try/validate，再 promote；
+- promote 后 N-2 通过 pacman 和受支持 hooks 清理，不手工删除 boot files；
+- 6.12 recovery 只保留历史 source、SHA 和 provenance，不进入 Arch 活动
+  package set 或 boot slot。
 
 ## Packages
 

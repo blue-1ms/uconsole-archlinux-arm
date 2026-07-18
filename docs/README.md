@@ -1,6 +1,8 @@
 # 文档索引
 
 - [`architecture.md`](architecture.md)：系统分层、仓库边界与更新模型。
+- [`kernel-lineage.md`](kernel-lineage.md)：共享 kernel、lean profile、
+  EOL、滚动更新与当前暂停边界。
 - [`roadmap.md`](roadmap.md)：从最小启动到可发布 image 的阶段门槛。
 
 后续应增加：

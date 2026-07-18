@@ -1,10 +1,23 @@
 # Roadmap
 
+## 当前暂停边界
+
+- 暂不构建 Arch `linux-uconsole` package、pacman repository 或 image。
+- 等待 Ubuntu 控制面中的 CM4 Lite candidate.16 lean kernel 完成 package
+  审计、实机 try/promote、硬件清单和故障回退验证。
+- 只有 hardware-passed 后，才把 exact `rpi-linux` tag/commit、final config、
+  patch series 和 immutable receipt 固定为本项目的新输入。
+- candidate.16 的失败或重新构建不得被同名覆盖；Arch 侧也不得提前复制未冻结
+  的 binary。
+
 ## Phase 0：输入审计
 
 - 固定并验证 Arch Linux ARM AArch64 Raspberry Pi rootfs。
 - 审计 rootfs 分区/boot 预期、默认用户、pacman keyring 和 package set。
-- 固定 `rpi-linux` commit、final config 与 mew-console requirements commit。
+- 在共享 CM4 Lite lean kernel hardware-passed 后，固定 `rpi-linux` exact
+  tag/commit、final config、config audit、patch series 和 receipt。
+- 明确 active kernel 不包含 6.12 recovery；历史 6.12 只作为 provenance。
+- 固定 mew-console requirements commit。
 - 定义 manifest schema、release ID 和 artifact 命名。
 
 完成条件：输入可重复下载和验证，不读取或携带敏感状态。
@@ -31,6 +44,8 @@
 - 实现 distro-neutral boot updater、`current`/`new` slot 和 pacman hooks。
 - 建立签名 kernel-only pacman bundle。
 - 验证安装、升级、旧 ABI 共存、故意损坏 `new` 自动回退和 FAT 分 slot 日志。
+- 验证滚动 retention：最新 hardware-passed 为 `current`，上一版为唯一 N-1，
+  promote 后使用 pacman 清理 N-2。
 
 完成条件：失败不会破坏 known-good kernel 或使诊断只能依赖 UART。
 
