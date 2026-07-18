@@ -1,0 +1,66 @@
+uConsole Arch Linux ARM
+Copyright 2026 blue-1ms
+
+This project is not affiliated with or endorsed by Arch Linux, Arch Linux ARM,
+ClockworkPi, Raspberry Pi Ltd, Canonical, or AK-Rex.
+
+Project control-plane code is licensed under Apache-2.0. Project documentation
+is licensed under CC-BY-4.0 unless noted otherwise. Those licenses do not
+replace the terms of the third-party works listed below.
+
+Third-party source and artifact lineage
+=======================================
+
+Arch Linux ARM
+  Source: https://archlinuxarm.org/
+  Planned use: signed AArch64 Raspberry Pi root filesystem and package
+  repository inputs, each pinned by a future build manifest.
+  Licenses: packages retain their individual licenses and copyright notices.
+
+Arch Linux
+  Source: https://archlinux.org/
+  Planned use: pacman, makepkg, mkinitcpio, systemd and package metadata.
+  Licenses: see each upstream project and package.
+
+Linux kernel
+  Sources: https://github.com/blue-1ms/rpi-linux and
+           https://github.com/raspberrypi/linux
+  Tested uConsole source commit at repository initialization:
+    db7c53b43da7ac8d65ef52328c51c6fb918302e2
+  License: GPL-2.0-only for the Linux kernel, subject to per-file notices.
+  Kernel source and history remain in the kernel repository; they are not
+  relicensed by this control plane.
+
+Raspberry Pi firmware
+  Source: https://github.com/raspberrypi/firmware
+  Planned use: CM4 boot firmware, DTBs and the official overlay catalogue.
+  Licenses: see the upstream distribution and individual files.
+
+ClockworkPi uConsole resources
+  Source: https://github.com/clockworkpi/uConsole
+  Planned use: hardware documentation and compatibility evidence.
+  License: see the upstream repository and individual files.
+
+AK-Rex Raspberry Pi Linux fork and packages
+  Sources: https://github.com/ak-rex/rpi-linux and
+           https://github.com/ak-rex/akrex-arm-repo
+  Planned use: behavioral and source compatibility evidence for uConsole
+  panel, backlight, input, audio and power support.
+  No binary is incorporated silently; every adopted source change must retain
+  its original license and provenance.
+
+blue-1ms uConsole Ubuntu LTS
+  Source: https://github.com/blue-1ms/uconsole-ubuntu-lts
+  Planned use: hardware validation, diagnostics and A/B policy reference.
+  Debian packages and Ubuntu boot hooks are not Arch Linux packages.
+
+blue-1ms mew-console Arch Linux ARM branch
+  Source: https://github.com/blue-1ms/mew-console/tree/codex/archlinux-arm
+  Audited branch commit at repository initialization:
+    338ab106b1705a7e3979a081091b8e8770267da8
+  Planned use: requirements source for an optional generic Sway profile and
+  first-boot flow. Personal credentials, network state and fixed home paths
+  must not be imported.
+
+Names and logos are trademarks of their respective owners. Inclusion here is
+for provenance and attribution and does not grant trademark rights.

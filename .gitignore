@@ -1,0 +1,29 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+
+# Managed build outputs and downloaded inputs.
+build/
+dist/
+cache/
+downloads/
+work/
+*.img
+*.img.xz
+*.img.zst
+*.pkg.tar.*
+*.tar.gz
+*.tar.zst
+
+# Local signing material and environment overrides.
+*.key
+*.pem
+*.p12
+*.gpg~
+.env
+.env.*
+!.env.example
+
+# Local validation artifacts.
+screenshots/
+hardware-reports/local/
